@@ -25,10 +25,31 @@ function App() {
     } else {
       if (value === 'C') {
         setExpression('0')
+      } else if (value === '.') {
+        let regex = /[%\+\-\*\/]/g
+        if (regex.test(expression)) {
+          if (expression.split(regex)[expression.split(regex).length - 1].includes('.')) {
+            setExpression(expression);
+          } else {
+            setExpression(expression + value);
+          }
+        } else {
+          if (expression.includes('.')) {
+            setExpression(expression);
+          } else {
+            setExpression(expression + value);
+          }
+        }
       } else if (value === '+/-'){
         setExpression(expression * -1);
       } else if (value === '=') {
         setExpression(math.evaluate(expression))
+      } else if (value === '+' || value === '-' || value === '*' || value === '%' || value === '/') {
+        if (['+', '-', '*', '/', '%'].some(item => item === expression[expression.length - 1])) {
+          setExpression(expression.slice(0, expression.length - 1) + value);
+        } else {
+          setExpression(expression + value);
+        }
       } else {
         setExpression(expression + value);
       }
