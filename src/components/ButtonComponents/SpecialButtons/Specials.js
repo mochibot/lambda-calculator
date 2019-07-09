@@ -13,7 +13,7 @@ const Specials = (props) => {
       {/* STEP 3 - Use .map() to iterate over your array data and return a button
        component matching the name on the provided file. Pass
        it any props needed by the child component*/}
-      {specialBtns.map(item => <SpecialButton inputCalc={props.inputCalc} special={item}/>)}
+      {specialBtns.map(item => <SpecialButton key={item} inputCalc={props.inputCalc} special={item}/>)}
     </div>
   );
 };

@@ -17,17 +17,21 @@ function App() {
   // Your functions should accept a parameter of the the item data being displayed to the DOM (ie - should recieve 5 if the user clicks on
   // the "5" button, or the operator if they click one of those buttons) and then call your setter function to update state.
   // Don't forget to pass the functions (and any additional data needed) to the components as props
-  const [expression, setExpression] = useState('')
+  const [expression, setExpression] = useState('0')
 
   const inputCalc = (value) => {
-    if (value === 'C') {
-      setExpression('')
-    } else if (value === '+/-'){
-      setExpression(expression * -1);
-    } else if (value === '=') {
-      setExpression(math.evaluate(expression))
+    if (expression === '0') {
+      setExpression(value);
     } else {
-      setExpression(expression + value);
+      if (value === 'C') {
+        setExpression('0')
+      } else if (value === '+/-'){
+        setExpression(expression * -1);
+      } else if (value === '=') {
+        setExpression(math.evaluate(expression))
+      } else {
+        setExpression(expression + value);
+      }
     }
   }
 
