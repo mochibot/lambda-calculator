@@ -17,42 +17,40 @@ function App() {
   // Your functions should accept a parameter of the the item data being displayed to the DOM (ie - should recieve 5 if the user clicks on
   // the "5" button, or the operator if they click one of those buttons) and then call your setter function to update state.
   // Don't forget to pass the functions (and any additional data needed) to the components as props
-  const [expression, setExpression] = useState('0')
+  const [expression, setExpression] = useState('')
 
   const inputCalc = (value) => {
-    if (expression === '0') {
-      setExpression(value);
-    } else {
-      if (value === 'C') {
-        setExpression('0')
-      } else if (value === '.') {
-        let regex = /[%\+\-\*\/]/g
-        if (regex.test(expression)) {
-          if (expression.split(regex)[expression.split(regex).length - 1].includes('.')) {
-            setExpression(expression);
-          } else {
-            setExpression(expression + value);
-          }
-        } else {
-          if (expression.includes('.')) {
-            setExpression(expression);
-          } else {
-            setExpression(expression + value);
-          }
-        }
-      } else if (value === '+/-'){
-        setExpression(expression * -1);
-      } else if (value === '=') {
-        setExpression(math.evaluate(expression))
-      } else if (value === '+' || value === '-' || value === '*' || value === '%' || value === '/') {
-        if (['+', '-', '*', '/', '%'].some(item => item === expression[expression.length - 1])) {
-          setExpression(expression.slice(0, expression.length - 1) + value);
+    if (value === 'C') {
+        setExpression('')
+    } else if (value === '.') {
+      //check if the current number already has decimal point. will only add decimal point if it doesn't
+      let regex = /[%\+\-\*\/]/g
+      if (regex.test(expression)) {
+        if (expression.split(regex)[expression.split(regex).length - 1].includes('.')) {
+          setExpression(expression);
         } else {
           setExpression(expression + value);
         }
       } else {
+        if (expression.includes('.')) {
+          setExpression(expression);
+        } else {
+          setExpression(expression + value);
+        }
+      }
+    } else if (value === '+/-'){
+      setExpression(expression * -1);
+    } else if (value === '=') {
+      setExpression(math.evaluate(expression))
+    } else if (value === '+' || value === '-' || value === '*' || value === '%' || value === '/') {
+      //if user input more than 1 operator in a row, will only keep the last operator
+      if (['+', '-', '*', '/', '%'].some(item => item === expression[expression.length - 1])) {
+        setExpression(expression.slice(0, expression.length - 1) + value);
+      } else {
         setExpression(expression + value);
       }
+    } else {
+      setExpression(expression + value);
     }
   }
 
