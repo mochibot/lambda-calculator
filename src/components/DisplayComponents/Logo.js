@@ -4,7 +4,7 @@ import logo from "../../Img/Lambda_Logo_white.png";
 
 const Logo = () => {
   return (
-    <div className="logo-container">
+    <div className="logoContainer">
       <img className="logo" src={logo} alt="Lambda's logo" />
     </div>
   );
